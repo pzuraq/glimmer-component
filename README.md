@@ -1,7 +1,7 @@
-sparkles-component
+@glimmer/component
 ==============================================================================
 
-![R. Sparkles](https://media.giphy.com/media/NwkYPLmQSLmhy/giphy.gif)
+![R. Glimmer](https://media.giphy.com/media/NwkYPLmQSLmhy/giphy.gif)
 
 Addon used to experiment with `@glimmer/component` style APIs in Ember apps via
 existing public APIs.
@@ -10,14 +10,14 @@ Installation
 ------------------------------------------------------------------------------
 
 ```
-ember install sparkles-component
+ember install @glimmer/component
 ```
 
 
 Usage
 ------------------------------------------------------------------------------
 
-The `sparkles-component` API supports most of the `@glimmer/component` API, including:
+The `@glimmer/component` API supports most of the `@glimmer/component` API, including:
 
 * Lifecycle hooks
   * `constructor` - will be called when the component is needed, passed the evaluated named arguments for the component
@@ -43,7 +43,7 @@ Comprehensive example (nearly **exactly** the same as the [the glimmer.js guides
 
 ```js
 // app/components/conference-speakers.js (.ts would also work)
-import Component, { tracked } from "sparkles-component";
+import Component, { tracked } from "@glimmer/component";
 
 export default class ConferenceSpeakers extends Component {
   @tracked current = 0;
@@ -91,7 +91,7 @@ Contributing
 ### Installation
 
 * `git clone <repository-url>`
-* `cd sparkles-component`
+* `cd @glimmer/component`
 * `yarn install`
 
 ### Linting

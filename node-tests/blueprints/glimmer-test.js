@@ -7,15 +7,15 @@ const { emberGenerateDestroy } = blueprintHelpers;
 
 const expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 
-describe('Classic App Layout: ember generate and destroy a sparkle component', function() {
+describe('Classic App Layout: ember generate and destroy a glimmer component', function() {
   setupTestHooks(this);
 
-  it('ember g sparkle x-foo', function() {
+  it('ember g glimmer x-foo', function() {
     // pass any additional command line options in the arguments array
     return emberNew().then(() =>
-      emberGenerateDestroy(['sparkles-component', 'x-foo'], file => {
+      emberGenerateDestroy(['@glimmer/component', 'x-foo'], file => {
         expect(file('app/components/x-foo.js')).to.eq(
-          `import Component from 'sparkles-component';
+          `import Component from '@glimmer/component';
 
 export default class XFoo extends Component {
 
@@ -58,14 +58,14 @@ module('Integration | Component | x-foo', function(hooks) {
       })
     );
   });
-  it('ember g sparkle x-foo --lang ts', function() {
+  it('ember g glimmer x-foo --lang ts', function() {
     // pass any additional command line options in the arguments array
     return emberNew().then(() =>
       emberGenerateDestroy(
-        ['sparkles-component', 'x-foo', '--lang', 'ts'],
+        ['@glimmer/component', 'x-foo', '--lang', 'ts'],
         file => {
           expect(file('app/components/x-foo.ts')).to.eq(
-            `import Component from 'sparkles-component';
+            `import Component from '@glimmer/component';
 
 export default class XFoo extends Component {
 
@@ -109,14 +109,14 @@ module('Integration | Component | x-foo', function(hooks) {
       )
     );
   });
-  it('ember g sparkle x-foo --lang js', function() {
+  it('ember g glimmer x-foo --lang js', function() {
     // pass any additional command line options in the arguments array
     return emberNew().then(() =>
       emberGenerateDestroy(
-        ['sparkles-component', 'x-foo', '--lang', 'js'],
+        ['@glimmer/component', 'x-foo', '--lang', 'js'],
         file => {
           expect(file('app/components/x-foo.js')).to.eq(
-            `import Component from 'sparkles-component';
+            `import Component from '@glimmer/component';
 
 export default class XFoo extends Component {
 
@@ -162,15 +162,15 @@ module('Integration | Component | x-foo', function(hooks) {
   });
 });
 
-describe('Classic Addon Layout: ember generate and destroy a sparkle component', function() {
+describe('Classic Addon Layout: ember generate and destroy a glimmer component', function() {
   setupTestHooks(this);
 
-  it('ember g sparkle x-boz', function() {
+  it('ember g glimmer x-boz', function() {
     // pass any additional command line options in the arguments array
     return emberNew({ target: 'addon' }).then(() =>
-      emberGenerateDestroy(['sparkles-component', 'x-boz'], file => {
+      emberGenerateDestroy(['@glimmer/component', 'x-boz'], file => {
         expect(file('addon/components/x-boz.js')).to.eq(
-          `import Component from 'sparkles-component';
+          `import Component from '@glimmer/component';
 
 export default class XBoz extends Component {
 
@@ -192,14 +192,14 @@ export default class XBoz extends Component {
       })
     );
   });
-  it('ember g sparkle x-baz --lang js', function() {
+  it('ember g glimmer x-baz --lang js', function() {
     // pass any additional command line options in the arguments array
     return emberNew({ target: 'addon' }).then(() =>
       emberGenerateDestroy(
-        ['sparkles-component', 'x-baz', '--lang', 'js'],
+        ['@glimmer/component', 'x-baz', '--lang', 'js'],
         file => {
           expect(file('addon/components/x-baz.js')).to.eq(
-            `import Component from 'sparkles-component';
+            `import Component from '@glimmer/component';
 
 export default class XBaz extends Component {
 
@@ -222,14 +222,14 @@ export default class XBaz extends Component {
       )
     );
   });
-  it('ember g sparkle x-biz --lang ts', function() {
+  it('ember g glimmer x-biz --lang ts', function() {
     // pass any additional command line options in the arguments array
     return emberNew({ target: 'addon' }).then(() =>
       emberGenerateDestroy(
-        ['sparkles-component', 'x-biz', '--lang', 'ts'],
+        ['@glimmer/component', 'x-biz', '--lang', 'ts'],
         file => {
           expect(file('addon/components/x-biz.ts')).to.eq(
-            `import Component from 'sparkles-component';
+            `import Component from '@glimmer/component';
 
 export default class XBiz extends Component {
 
@@ -254,17 +254,17 @@ export default class XBiz extends Component {
   });
 });
 
-describe('MU App Layout: ember generate and destroy a sparkle component', function() {
+describe('MU App Layout: ember generate and destroy a glimmer component', function() {
   setupTestHooks(this);
 
-  it('ember g sparkle x-foo', function() {
+  it('ember g glimmer x-foo', function() {
     // pass any additional command line options in the arguments array
     return emberNew({ isModuleUnification: true }).then(() =>
       emberGenerateDestroy(
-        ['sparkles-component', 'x-foo'],
+        ['@glimmer/component', 'x-foo'],
         file => {
           expect(file('src/ui/components/x-foo/component.js')).to.eq(
-            `import Component from 'sparkles-component';
+            `import Component from '@glimmer/component';
 
 export default class XFoo extends Component {
 
@@ -280,14 +280,14 @@ export default class XFoo extends Component {
       )
     );
   });
-  it('ember g sparkle x-foo --lang js', function() {
+  it('ember g glimmer x-foo --lang js', function() {
     // pass any additional command line options in the arguments array
     return emberNew({ isModuleUnification: true }).then(() =>
       emberGenerateDestroy(
-        ['sparkles-component', 'x-foo', '--lang', 'js'],
+        ['@glimmer/component', 'x-foo', '--lang', 'js'],
         file => {
           expect(file('src/ui/components/x-foo/component.js')).to.eq(
-            `import Component from 'sparkles-component';
+            `import Component from '@glimmer/component';
 
 export default class XFoo extends Component {
 
@@ -303,14 +303,14 @@ export default class XFoo extends Component {
       )
     );
   });
-  it('ember g sparkle x-foo --lang ts', function() {
+  it('ember g glimmer x-foo --lang ts', function() {
     // pass any additional command line options in the arguments array
     return emberNew({ isModuleUnification: true }).then(() =>
       emberGenerateDestroy(
-        ['sparkles-component', 'x-foo', '--lang', 'ts'],
+        ['@glimmer/component', 'x-foo', '--lang', 'ts'],
         file => {
           expect(file('src/ui/components/x-foo/component.ts')).to.eq(
-            `import Component from 'sparkles-component';
+            `import Component from '@glimmer/component';
 
 export default class XFoo extends Component {
 

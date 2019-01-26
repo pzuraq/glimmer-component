@@ -29,16 +29,16 @@
         "tests/dummy/app/*",
         "app/*"
       ],
-      "sparkles-component": [
+      "@glimmer/component": [
         "addon"
       ],
-      "sparkles-component/*": [
+      "@glimmer/component/*": [
         "addon/*"
       ],
-      "sparkles-component/test-support": [
+      "@glimmer/component/test-support": [
         "addon-test-support"
       ],
-      "sparkles-component/test-support/*": [
+      "@glimmer/component/test-support/*": [
         "addon-test-support/*"
       ],
       "*": [
