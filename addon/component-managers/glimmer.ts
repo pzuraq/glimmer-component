@@ -2,15 +2,15 @@ import { set } from '@ember/object';
 import { getOwner, setOwner } from '@ember/application';
 import ApplicationInstance from '@ember/application/instance';
 import { capabilities } from '@ember/component';
-import SparklesComponent from '../';
+import GlimmerComponent from '../';
 
 export interface ComponentManagerArgs {
   named: object;
   positional: any[];
 }
-type CreateComponentResult = SparklesComponent<object> & { ___createComponentResult: true };
+type CreateComponentResult = GlimmerComponent<object> & { ___createComponentResult: true };
 
-export default class SparklesComponentManager {
+export default class GlimmerComponentManager {
   static create(attrs: any) {
     let owner = getOwner(attrs);
     return new this(owner);
@@ -24,7 +24,7 @@ export default class SparklesComponentManager {
     });
   }
 
-  createComponent(Klass: typeof SparklesComponent, args: ComponentManagerArgs): CreateComponentResult {
+  createComponent(Klass: typeof GlimmerComponent, args: ComponentManagerArgs): CreateComponentResult {
     let instance = new Klass(args.named);
     setOwner(instance, getOwner(this));
     return instance as CreateComponentResult;

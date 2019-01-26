@@ -1,9 +1,9 @@
 import ApplicationInstance from '@ember/application/instance';
 import { setComponentManager } from '@ember/component';
 import { gte } from 'ember-compatibility-helpers';
-import SparklesComponentManager from './component-managers/sparkles';
+import GlimmerComponentManager from './component-managers/glimmer';
 
-class SparklesComponent<T = object> {
+class GlimmerComponent<T = object> {
   constructor(public args: T) {}
 
   didInsertElement() {}
@@ -15,13 +15,10 @@ class SparklesComponent<T = object> {
 
 if (gte('3.8.0-beta.1')) {
   setComponentManager((owner: ApplicationInstance) => {
-    return new SparklesComponentManager(owner)
-  }, SparklesComponent);
+    return new GlimmerComponentManager(owner)
+  }, GlimmerComponent);
 } else {
-  setComponentManager('sparkles', SparklesComponent);
+  setComponentManager('glimmer', GlimmerComponent);
 }
 
-export default SparklesComponent;
-
-export { tracked } from './tracked';
-
+export default GlimmerComponent;

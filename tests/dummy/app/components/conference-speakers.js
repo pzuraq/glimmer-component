@@ -1,4 +1,4 @@
-import Component, { tracked } from "sparkles-component";
+import Component, { tracked } from "@glimmer/component";
 
 export default class ConferenceSpeakers extends Component {
   @tracked current = 0;

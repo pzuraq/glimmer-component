@@ -1,5 +1,5 @@
 {
-  "name": "sparkles-component",
+  "name": "@glimmer/component",
   "version": "1.3.0",
   "description": "Experiment with `@glimmer/component` style APIs in Ember apps via existing public APIs",
   "keywords": [
@@ -11,7 +11,7 @@
     "doc": "doc",
     "test": "tests"
   },
-  "repository": "https://github.com/rwjblue/sparkles-component",
+  "repository": "https://github.com/rwjblue/glimmer-component",
   "scripts": {
     "build": "ember build",
     "lint:js": "eslint .",
@@ -80,7 +80,7 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config",
-    "defaultBlueprint": "install-sparkles",
+    "defaultBlueprint": "install-glimmer-component",
     "main": "ember-addon-main.js"
   },
   "main": "addon/index.js"

@@ -8,7 +8,7 @@ const isModuleUnificationProject = require('../module-unification')
   .isModuleUnificationProject;
 
 module.exports = {
-  description: 'Generates a sparkles-component',
+  description: 'Generates a @glimmer/component',
 
   availableOptions: [
     {
