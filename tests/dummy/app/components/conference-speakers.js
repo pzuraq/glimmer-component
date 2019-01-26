@@ -1,20 +1,23 @@
-import Component, { tracked } from "@glimmer/component";
+import Component from '@glimmer/component';
+import { action, computed } from '@ember-decorators/object';
+import { set } from '@ember/object';
 
 export default class ConferenceSpeakers extends Component {
-  @tracked current = 0;
+  current = 0;
   speakers = ['Tom', 'Yehuda', 'Ed'];
 
-  @tracked('current')
+  @computed('current')
   get currentlySpeaking() {
     return this.speakers[this.current];
   }
 
-  @tracked('current')
+  @computed('current')
   get moreSpeakers() {
     return (this.speakers.length - 1) > this.current;
   }
 
+  @action
   next() {
-    this.current = this.current + 1;
+    set(this, 'current', this.current + 1);
   }
 }
