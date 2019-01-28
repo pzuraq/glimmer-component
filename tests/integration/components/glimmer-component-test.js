@@ -1,9 +1,10 @@
-import GlimmerComponent, { tracked } from '@glimmer/component';
+import GlimmerComponent from '@glimmer/component';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render, clearRender, click } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { getOwner } from '@ember/application';
+import { set } from '@ember/object';
 
 module('Integration | Component | @glimmer/component', function(hooks) {
   let InstrumentedComponent;
@@ -17,16 +18,8 @@ module('Integration | Component | @glimmer/component', function(hooks) {
         assert.step('constructor');
       }
 
-      didInsertElement() {
-        assert.step('didInsertElement');
-      }
-
-      didUpdate() {
-        assert.step('didUpdate');
-      }
-
-      destroy() {
-        assert.step('destroy');
+      willDestroy() {
+        assert.step('willDestroy');
       }
     }
   });
@@ -36,11 +29,11 @@ module('Integration | Component | @glimmer/component', function(hooks) {
 
     await render(hbs`{{under-test}}`);
 
-    assert.verifySteps(['constructor', 'didInsertElement'], 'initial render steps');
+    assert.verifySteps(['constructor'], 'initial setup steps');
 
     await clearRender();
 
-    assert.verifySteps(['destroy'], 'post destroy steps');
+    assert.verifySteps(['willDestroy'], 'post destroy steps');
   });
 
   test('it can render and update with curlies (args)', async function(assert) {
@@ -51,21 +44,21 @@ module('Integration | Component | @glimmer/component', function(hooks) {
     await render(hbs`{{under-test text=this.text}}`);
 
     assert.dom('p').hasText('hello!');
-    assert.verifySteps(['constructor', 'didInsertElement'], 'initial render steps');
+    assert.verifySteps(['constructor'], 'initial render steps');
 
     this.set('text', 'hello world!');
 
     assert.dom('p').hasText('hello world!');
-    assert.verifySteps(['didUpdate'], 'rerender steps');
+    assert.verifySteps([], 'no rerender steps');
 
     this.set('text', 'hello!');
 
     assert.dom('p').hasText('hello!');
-    assert.verifySteps(['didUpdate'], 'rerender steps');
+    assert.verifySteps([], 'no rerender steps');
 
     await clearRender();
 
-    assert.verifySteps(['destroy'], 'post destroy steps');
+    assert.verifySteps(['willDestroy'], 'post destroy steps');
   });
 
   test('it can render with angles (no args)', async function(assert) {
@@ -73,11 +66,11 @@ module('Integration | Component | @glimmer/component', function(hooks) {
 
     await render(hbs`<UnderTest />`);
 
-    assert.verifySteps(['constructor', 'didInsertElement'], 'initial render steps');
+    assert.verifySteps(['constructor'], 'initial render steps');
 
     await clearRender();
 
-    assert.verifySteps(['destroy'], 'post destroy steps');
+    assert.verifySteps(['willDestroy'], 'post destroy steps');
   });
 
   test('it can render and update with angles (args)', async function(assert) {
@@ -88,21 +81,21 @@ module('Integration | Component | @glimmer/component', function(hooks) {
     await render(hbs`<UnderTest @text={{this.text}} />`);
 
     assert.dom('p').hasText('hello!');
-    assert.verifySteps(['constructor', 'didInsertElement'], 'initial render steps');
+    assert.verifySteps(['constructor'], 'initial render steps');
 
     this.set('text', 'hello world!');
 
     assert.dom('p').hasText('hello world!');
-    assert.verifySteps(['didUpdate'], 'rerender steps');
+    assert.verifySteps([], 'no rerender steps');
 
     this.set('text', 'hello!');
 
     assert.dom('p').hasText('hello!');
-    assert.verifySteps(['didUpdate'], 'rerender steps');
+    assert.verifySteps([], 'no rerender steps');
 
     await clearRender();
 
-    assert.verifySteps(['destroy'], 'post destroy steps');
+    assert.verifySteps(['willDestroy'], 'post destroy steps');
   });
 
   test('it can use args in component', async function(assert) {
@@ -118,11 +111,12 @@ module('Integration | Component | @glimmer/component', function(hooks) {
     assert.dom('p').hasText('HELLO!');
   });
 
-  test('it can use tracked to recompute when args change', async function(assert) {
+  test('it can use args in constructor', async function(assert) {
     this.owner.register('component:under-test', class extends GlimmerComponent {
-      @tracked('args')
-      get text() {
-        return this.args.text.toUpperCase();
+      constructor() {
+        super(...arguments);
+
+        this.text = this.args.text.toUpperCase();
       }
     });
     this.owner.register('template:components/under-test', hbs`<p>{{this.text}}</p>`);
@@ -130,33 +124,18 @@ module('Integration | Component | @glimmer/component', function(hooks) {
     this.set('text', 'hello!');
     await render(hbs`<UnderTest @text={{this.text}} />`);
     assert.dom('p').hasText('HELLO!');
-
-    this.set('text', 'hello world!');
-    assert.dom('p').hasText('HELLO WORLD!');
-
-    this.set('text', 'hello!');
-    assert.dom('p').hasText('HELLO!');
   });
 
-  test('it can use tracked to recompute for changes', async function(assert) {
+  test('it can use get/set to recompute for changes', async function(assert) {
     this.owner.register('component:under-test', class extends GlimmerComponent {
       constructor() {
         super(...arguments);
 
-        this._count = 0;
-      }
-
-      @tracked
-      get count() {
-        return this._count;
-      }
-
-      set count(value) {
-        this._count = value;
+        this.count = 0;
       }
 
       increment() {
-        this.count++;
+        set(this, 'count', this.count + 1);
       }
     });
     this.owner.register(
@@ -221,5 +200,21 @@ module('Integration | Component | @glimmer/component', function(hooks) {
     );
     await render(hbs`<UnderTest />`);
     assert.dom('p').hasText('Environment: test');
-  })
+  });
+
+  test('it has an owner', async function(assert) {
+    this.owner.register('component:under-test', class extends GlimmerComponent {
+      constructor() {
+        super(...arguments);
+
+        this.environment = getOwner(this).resolveRegistration("config:environment").environment;
+      }
+    });
+    this.owner.register(
+      'template:components/under-test',
+      hbs`<p>Environment: {{this.environment}}</p>`
+    );
+    await render(hbs`<UnderTest />`);
+    assert.dom('p').hasText('Environment: test');
+  });
 });

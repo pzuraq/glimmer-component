@@ -16,6 +16,7 @@ cache:
 branches:
   only:
     - master
+    - feat/glimmer-components
     # npm version tags
     - /^v\d+\.\d+\.\d+/
 

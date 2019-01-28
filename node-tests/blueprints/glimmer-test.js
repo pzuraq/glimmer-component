@@ -13,7 +13,7 @@ describe('Classic App Layout: ember generate and destroy a glimmer component', f
   it('ember g glimmer x-foo', function() {
     // pass any additional command line options in the arguments array
     return emberNew().then(() =>
-      emberGenerateDestroy(['@glimmer/component', 'x-foo'], file => {
+      emberGenerateDestroy(['glimmer-component', 'x-foo'], file => {
         expect(file('app/components/x-foo.js')).to.eq(
           `import Component from '@glimmer/component';
 
@@ -62,7 +62,7 @@ module('Integration | Component | x-foo', function(hooks) {
     // pass any additional command line options in the arguments array
     return emberNew().then(() =>
       emberGenerateDestroy(
-        ['@glimmer/component', 'x-foo', '--lang', 'ts'],
+        ['glimmer-component', 'x-foo', '--lang', 'ts'],
         file => {
           expect(file('app/components/x-foo.ts')).to.eq(
             `import Component from '@glimmer/component';
@@ -113,7 +113,7 @@ module('Integration | Component | x-foo', function(hooks) {
     // pass any additional command line options in the arguments array
     return emberNew().then(() =>
       emberGenerateDestroy(
-        ['@glimmer/component', 'x-foo', '--lang', 'js'],
+        ['glimmer-component', 'x-foo', '--lang', 'js'],
         file => {
           expect(file('app/components/x-foo.js')).to.eq(
             `import Component from '@glimmer/component';
@@ -168,7 +168,7 @@ describe('Classic Addon Layout: ember generate and destroy a glimmer component',
   it('ember g glimmer x-boz', function() {
     // pass any additional command line options in the arguments array
     return emberNew({ target: 'addon' }).then(() =>
-      emberGenerateDestroy(['@glimmer/component', 'x-boz'], file => {
+      emberGenerateDestroy(['glimmer-component', 'x-boz'], file => {
         expect(file('addon/components/x-boz.js')).to.eq(
           `import Component from '@glimmer/component';
 
@@ -196,7 +196,7 @@ export default class XBoz extends Component {
     // pass any additional command line options in the arguments array
     return emberNew({ target: 'addon' }).then(() =>
       emberGenerateDestroy(
-        ['@glimmer/component', 'x-baz', '--lang', 'js'],
+        ['glimmer-component', 'x-baz', '--lang', 'js'],
         file => {
           expect(file('addon/components/x-baz.js')).to.eq(
             `import Component from '@glimmer/component';
@@ -226,7 +226,7 @@ export default class XBaz extends Component {
     // pass any additional command line options in the arguments array
     return emberNew({ target: 'addon' }).then(() =>
       emberGenerateDestroy(
-        ['@glimmer/component', 'x-biz', '--lang', 'ts'],
+        ['glimmer-component', 'x-biz', '--lang', 'ts'],
         file => {
           expect(file('addon/components/x-biz.ts')).to.eq(
             `import Component from '@glimmer/component';
@@ -261,7 +261,7 @@ describe('MU App Layout: ember generate and destroy a glimmer component', functi
     // pass any additional command line options in the arguments array
     return emberNew({ isModuleUnification: true }).then(() =>
       emberGenerateDestroy(
-        ['@glimmer/component', 'x-foo'],
+        ['glimmer-component', 'x-foo'],
         file => {
           expect(file('src/ui/components/x-foo/component.js')).to.eq(
             `import Component from '@glimmer/component';
@@ -284,7 +284,7 @@ export default class XFoo extends Component {
     // pass any additional command line options in the arguments array
     return emberNew({ isModuleUnification: true }).then(() =>
       emberGenerateDestroy(
-        ['@glimmer/component', 'x-foo', '--lang', 'js'],
+        ['glimmer-component', 'x-foo', '--lang', 'js'],
         file => {
           expect(file('src/ui/components/x-foo/component.js')).to.eq(
             `import Component from '@glimmer/component';
@@ -307,7 +307,7 @@ export default class XFoo extends Component {
     // pass any additional command line options in the arguments array
     return emberNew({ isModuleUnification: true }).then(() =>
       emberGenerateDestroy(
-        ['@glimmer/component', 'x-foo', '--lang', 'ts'],
+        ['glimmer-component', 'x-foo', '--lang', 'ts'],
         file => {
           expect(file('src/ui/components/x-foo/component.ts')).to.eq(
             `import Component from '@glimmer/component';
